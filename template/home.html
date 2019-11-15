@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    HOME
+
+    {% if user.is_authenticated %}
+    <p>Olá {{ user.username }}</p>
+    <a href="{% url 'login' %}">Logar</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+  </body>
+</html>
