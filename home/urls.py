@@ -12,7 +12,11 @@ função à ser chamada.
 """
 
 urlpatterns = [
+<<<<<<< HEAD
     path('', home, name="home"),
 
 
+=======
+    path('' ,home ,name="home"),
+>>>>>>> d83e75488d7e21a699bdcef4a917e771fc2f60d3
 ]

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from decouple import config
+from dj_database_url import parse as dburl
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jc8@q3-b&r^ndeyu^v*fg9@!e_&wckd-bh41y9skw(0vrilfeo'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['management-clients-csp.herokuapp.com']
 
 
 # Application definition
@@ -38,8 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+<<<<<<< HEAD
     'clientes',
     'home',
+=======
+    'home',
+    'clientes',
+
+>>>>>>> d83e75488d7e21a699bdcef4a917e771fc2f60d3
 ]
 
 MIDDLEWARE = [
@@ -73,19 +81,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'management_clients.wsgi.application'
 
 
+
+
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mdproclients',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
+
 
 
 # Password validation
@@ -126,9 +131,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'person_list'

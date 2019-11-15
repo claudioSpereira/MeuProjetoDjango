@@ -17,12 +17,20 @@ from django.contrib import admin
 from django.urls import path, include
 from clientes import urls as clientes_urls
 from home import urls as home_urls
+<<<<<<< HEAD
+=======
+from django.contrib.auth import views as auth_views
+
+>>>>>>> d83e75488d7e21a699bdcef4a917e771fc2f60d3
 
 """Visualizar imagens no browser"""
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include(home_urls)),
+    path('login/', auth_views.LoginView.as_view(), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('clientes/', include(clientes_urls)),
     path('', include(home_urls)),
     path('admin/', admin.site.urls),
